@@ -38,7 +38,7 @@ class Parser
       authors, title, edition, misc, year, pages = match[1]
       {
         line: line,
-        authors: authors,
+        authors: authors.split(';').map(&:strip),
         title: title,
         edition: edition,
         misc: misc,
@@ -58,5 +58,5 @@ class Parser
   end
 end
 
-parser = Parser.new('data/chap-2-2.txt')
+parser = Parser.new('data/chap-2-1.txt')
 parser.run
