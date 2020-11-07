@@ -1,7 +1,7 @@
 task default: %w[test]
 
 task :run do
-  ruby 'lib/parser.rb'
+  ruby 'app.rb'
 end
 
 task :test do
