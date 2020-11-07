@@ -3,10 +3,15 @@ require 'yaml'
 
 class Parser
   REGEX_EXTRACTOR = Regexp.new(/(^[\w+'éÉçë,.;() -]+),\s"([\wéèçà'-:? XXVI,]*)",\s([\s\w+'éèÉ()\[\]\/:-]+),\s(.*)\s?(\d{4}[-\/]?\d*),\s(p+.\s\d+-\d+|\d+\sp.)/)
+  TAGS =
+    {
+      'chap-2-1': 'HISTOIRE;TÉMOIGNAGE;Historiographie;Méthodes',
+      'chap-2-2': 'HISTOIRE;TÉMOIGNAGE;Longues durées',
+    }
 
   def initialize(file_path)
-    @file_path = file_path
     @content = File.read(file_path)
+    @chap_number = File.basename(file_path, '.txt')
     clean
     @lines = @content.split("\n")
   end
@@ -43,7 +48,8 @@ class Parser
         edition: edition,
         misc: misc,
         year: year,
-        pages: pages
+        pages: pages,
+        tags: TAGS[@chap_number.to_sym].split(';')
       }
     end
   end
@@ -53,10 +59,12 @@ class Parser
   end
 
   def write
-    filename = File.basename(@file_path, '.txt')
-    File.open("export/#{filename}.yml", 'w') { |file| file.write(to_yaml) }
+    File.open("export/#{@chap_number}.yml", 'w') { |file| file.write(to_yaml) }
   end
 end
 
-parser = Parser.new('data/chap-2-1.txt')
-parser.run
+['chap-2-1', 'chap-2-2'].each do |chapter|
+  parser = Parser.new("data/#{chapter}.txt")
+  parser.run
+end
+
