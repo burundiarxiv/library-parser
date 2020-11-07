@@ -2,7 +2,7 @@ require 'pry'
 require 'yaml'
 
 class Parser
-  REGEX_EXTRACTOR = Regexp.new(/(^[\w+'éÉ,.; -]+),\s"([\wéèçà'-:? XXVI,]*)",\s([\s\w+'éèÉ()\/:]+),\s(.*)\s(\d{4}-?\d?),\s(p+.\s\d+-\d+|\d+\sp.)/)
+  REGEX_EXTRACTOR = Regexp.new(/(^[\w+'éÉçë,.;() -]+),\s"([\wéèçà'-:? XXVI,]*)",\s([\s\w+'éèÉ()\[\]\/:-]+),\s(.*)\s?(\d{4}[-\/]?\d*),\s(p+.\s\d+-\d+|\d+\sp.)/)
 
   def initialize(file_path)
     @file_path = file_path
@@ -58,5 +58,5 @@ class Parser
   end
 end
 
-# parser = Parser.new('data/chap-2-1.txt')
-# parser.run
+parser = Parser.new('data/chap-2-2.txt')
+parser.run
