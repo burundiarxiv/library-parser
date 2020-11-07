@@ -1,11 +1,26 @@
+require 'pry'
+require 'yaml'
+
 class Parser
   REGEX_EXTRACTOR = Regexp.new(/(^[\w+'éÉ,.; -]+),\s"([\wéèçà'-:? XXVI,]*)",\s([\s\w+'éèÉ()\/:]+),\s(.*)\s(\d{4}-?\d?),\s(p+.\s\d+-\d+|\d+\sp.)/)
 
-  def initialize(file_path = 'sample-1.txt')
+  def initialize(file_path)
+    @file_path = file_path
     @content = File.read(file_path)
     clean
     @lines = @content.split("\n")
   end
+
+  def parse
+    @matches = @lines.map { |line| [line, extract(line)] }
+  end
+
+  def run
+    parse
+    write
+  end
+
+  private
 
   def clean
     map = {'“' => '"', '”' => '"', "’" => "'" }
@@ -17,14 +32,12 @@ class Parser
     line.scan(REGEX_EXTRACTOR).flatten
   end
 
-  def parse
-    @matches = @lines.map { |line| [line, extract(line)] }
-  end
-
   def export
    @matches.map do |match|
-      authors, title, edition, misc, year, pages = match
+      line = match[0]
+      authors, title, edition, misc, year, pages = match[1]
       {
+        line: line,
         authors: authors,
         title: title,
         edition: edition,
@@ -35,9 +48,15 @@ class Parser
     end
   end
 
-  def run
-    clean
-    parse
-    export
+  def to_yaml
+    YAML.dump(export)
+  end
+
+  def write
+    filename = File.basename(@file_path, '.txt')
+    File.open("export/#{filename}.yml", 'w') { |file| file.write(to_yaml) }
   end
 end
+
+parser = Parser.new('data/chap-2-1.txt')
+p parser.run
