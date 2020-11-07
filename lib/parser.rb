@@ -1,4 +1,6 @@
 class Parser
+  REGEX_EXTRACTOR = Regexp.new(/(^[\w+'é,; -]+),\s"([\wéèà'-: XXVI,]*)",\s([\s\w+'éè()]+),\s(.*)\s(\d{4}-?\d?),\s(p+.\s\d+-\d+)/)
+
   def initialize(file_path = 'sample-1.txt')
     @content = File.read(file_path)
     clean
@@ -11,17 +13,12 @@ class Parser
     @content.gsub!(re, map)
   end
 
-  # def lines
-  #   @content.split("\n")
-  # end
+  def extract(line)
+    line.scan(REGEX_EXTRACTOR).flatten
+  end
 
   def parse
-    regex = Regexp.new(/(^[\w+'é,; -]+),\s"([\wéèà'-: XXVI,]*)",\s([\s\w+'éè()]+),\s(.*)\s(\d{4}-?\d?),\s(p+.\s\d+-\d+)/)
-    binding.pry
-    @matches = @content.scan(regex) || []
-    binding.pry
-    puts @matches
-    @matches
+    @matches = @lines.map { |line| [line, extract(line)] }
   end
 
   def export
@@ -44,8 +41,3 @@ class Parser
     export
   end
 end
-
-# parser = Parser.new
-# parser.parse
-# puts parser.content
-# pp parser.run
