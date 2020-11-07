@@ -58,5 +58,5 @@ class Parser
   end
 end
 
-parser = Parser.new('data/chap-2-1.txt')
-p parser.run
+# parser = Parser.new('data/chap-2-1.txt')
+# parser.run
