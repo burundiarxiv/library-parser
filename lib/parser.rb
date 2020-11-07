@@ -1,5 +1,5 @@
 class Parser
-  REGEX_EXTRACTOR = Regexp.new(/(^[\w+'é,; -]+),\s"([\wéèà'-: XXVI,]*)",\s([\s\w+'éè()]+),\s(.*)\s(\d{4}-?\d?),\s(p+.\s\d+-\d+)/)
+  REGEX_EXTRACTOR = Regexp.new(/(^[\w+'éÉ,.; -]+),\s"([\wéèçà'-:? XXVI,]*)",\s([\s\w+'éèÉ()\/:]+),\s(.*)\s(\d{4}-?\d?),\s(p+.\s\d+-\d+|\d+\sp.)/)
 
   def initialize(file_path = 'sample-1.txt')
     @content = File.read(file_path)
