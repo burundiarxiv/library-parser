@@ -13,17 +13,13 @@ class ParserTest < Minitest::Test
   end
 
   def test_export_to_json
-    chapter = 'chap-2-1'
-    parser = Parser.new("data/#{chapter}.txt")
-    parser.parse
+    parser = parse_chapter('chap-2-1')
     json_results = parser.export
     assert_equal(expected_json, json_results.first)
   end
 
   def test_write_json_file
-    chapter = 'chap-2-1'
-    parser = Parser.new("data/#{chapter}.txt")
-    parser.parse
+    parser = parse_chapter('chap-2-1')
     exported_file = 'test/fixtures/chap-2-1.json'
     parser.write(exported_file)
 
@@ -40,6 +36,12 @@ class ParserTest < Minitest::Test
     matches.each do |match|
       assert(match[1].count == 6, match[0])
     end
+  end
+
+  def parse_chapter(chapter)
+    parser = Parser.new("data/#{chapter}.txt")
+    parser.parse
+    parser
   end
 
   def expected_json
