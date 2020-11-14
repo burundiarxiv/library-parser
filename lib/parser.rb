@@ -1,13 +1,13 @@
 require 'pry'
-require 'yaml'
+require 'json'
 
 class Parser
-  REGEX_EXTRACTOR = Regexp.new(/(^[\w+'éÉçë,.;() -]+),\s"([\wéèçà'-:? XXVI,]*)",\s([\s\w+'éèÉ()\[\]\/:-]+),\s(.*)\s?(\d{4}[-\/]?\d*),\s(p+.\s\d+-\d+|\d+\sp.)/)
+  REGEX_EXTRACTOR = Regexp.new(%r{(^[\w+'éÉçë,.;() -]+),\s"([\wéèçà'-:? XXVI,]*)",\s([\s\w+'éèÉ()\[\]/:-]+),\s(.*)\s?(\d{4}[-/]?\d*),\s(p+.\s\d+-\d+|\d+\sp.)})
   TAGS =
     {
       'chap-2-1': 'HISTOIRE;TÉMOIGNAGE;Historiographie;Méthodes',
-      'chap-2-2': 'HISTOIRE;TÉMOIGNAGE;Longues durées',
-    }
+      'chap-2-2': 'HISTOIRE;TÉMOIGNAGE;Longues durées'
+    }.freeze
 
   def initialize(file_path)
     @content = File.read(file_path)
@@ -22,23 +22,11 @@ class Parser
 
   def run
     parse
-    write
-  end
-
-  private
-
-  def clean
-    map = {'“' => '"', '”' => '"', "’" => "'" }
-    re = Regexp.new(map.keys.map { |x| Regexp.escape(x) }.join('|'))
-    @content.gsub!(re, map)
-  end
-
-  def extract(line)
-    line.scan(REGEX_EXTRACTOR).flatten
+    write("export/#{@chap_number}.json")
   end
 
   def export
-   @matches.map do |match|
+    @matches.map do |match|
       line = match[0]
       authors, title, edition, misc, year, pages = match[1]
       {
@@ -54,12 +42,19 @@ class Parser
     end
   end
 
-  def to_yaml
-    YAML.dump(export)
+  def write(destination)
+    File.open(destination, 'w') { |file| file.write(export.to_json) }
   end
 
-  def write
-    File.open("export/#{@chap_number}.yml", 'w') { |file| file.write(to_yaml) }
+  private
+
+  def clean
+    map = { '“' => '"', '”' => '"', '’' => "'" }
+    re = Regexp.new(map.keys.map { |x| Regexp.escape(x) }.join('|'))
+    @content.gsub!(re, map)
+  end
+
+  def extract(line)
+    line.scan(REGEX_EXTRACTOR).flatten
   end
 end
-
