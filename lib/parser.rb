@@ -2,11 +2,12 @@ require 'pry'
 require 'json'
 
 class Parser
-  REGEX_EXTRACTOR = Regexp.new(%r{(^[\w+'éÉçë,.;() -]+),\s"([\wéèçà'-:? XXVI,]*)",\s([\s\w+'éèÉ()\[\]/:-]+),\s(.*)\s?(\d{4}[-/]?\d*),\s(p+.\s\d+-\d+|\d+\sp.)})
+  REGEX_EXTRACTOR = Regexp.new(%r{(^[\w+'éÉçë,.;—() -]+),\s"([\wéêèïçàÉ'-:? XXVI,\[\]()]*)",\s([\s\w+'éèàçÉ.()\[\]\/:-]+),\s(.*)\s?(\d{4}[-\/]?\d*),\s(p+.\s\d+-\d+|\d+\sp.)})
   TAGS =
     {
       'chap-2-1-1': 'HISTOIRE;TÉMOIGNAGE;Historiographie;Méthodes',
-      'chap-2-1-2': 'HISTOIRE;TÉMOIGNAGE;Longues durées'
+      'chap-2-1-2': 'HISTOIRE;TÉMOIGNAGE;Longues durées',
+      'chap-2-1-3': 'HISTOIRE;TÉMOIGNAGE;Préhistoire; Archéologie'
     }.freeze
 
   def initialize(file_path)
