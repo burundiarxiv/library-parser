@@ -5,8 +5,8 @@ class Parser
   REGEX_EXTRACTOR = Regexp.new(%r{(^[\w+'éÉçë,.;() -]+),\s"([\wéèçà'-:? XXVI,]*)",\s([\s\w+'éèÉ()\[\]/:-]+),\s(.*)\s?(\d{4}[-/]?\d*),\s(p+.\s\d+-\d+|\d+\sp.)})
   TAGS =
     {
-      'chap-2-1': 'HISTOIRE;TÉMOIGNAGE;Historiographie;Méthodes',
-      'chap-2-2': 'HISTOIRE;TÉMOIGNAGE;Longues durées'
+      'chap-2-1-1': 'HISTOIRE;TÉMOIGNAGE;Historiographie;Méthodes',
+      'chap-2-1-2': 'HISTOIRE;TÉMOIGNAGE;Longues durées'
     }.freeze
 
   def initialize(file_path)

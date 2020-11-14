@@ -4,23 +4,23 @@ require 'json'
 require_relative '../lib/parser'
 
 class ParserTest < Minitest::Test
-  def test_extract_content_chap_2_1
-    test_extract_chapter('chap-2-1')
+  def test_extract_content_chap_2_1_1
+    test_extract_chapter('chap-2-1-1')
   end
 
-  def test_extract_content_chap_2_2
-    test_extract_chapter('chap-2-2')
+  def test_extract_content_chap_2_1_2
+    test_extract_chapter('chap-2-1-2')
   end
 
   def test_export_to_json
-    parser = parse_chapter('chap-2-1')
+    parser = parse_chapter('chap-2-1-1')
     json_results = parser.export
     assert_equal(expected_json, json_results.first)
   end
 
   def test_write_json_file
-    parser = parse_chapter('chap-2-1')
-    exported_file = 'test/fixtures/chap-2-1.json'
+    parser = parse_chapter('chap-2-1-1')
+    exported_file = 'test/fixtures/chap-2-1-1.json'
     parser.write(exported_file)
 
     file = File.read(exported_file)
