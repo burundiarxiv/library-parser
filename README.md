@@ -13,4 +13,5 @@ This bibliography is available [here](https://www.uantwerpen.be/en/projects/grea
 ### How contribute
 
 - Improve the extraction engine in `lib/parser.rb`
-- Build a first version of the web app that will serve the yaml files in `export` folder
+- Build a first version of the web app that will serve the json files in `export` folder
+- Extract more chapters

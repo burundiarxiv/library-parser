@@ -1,6 +1,6 @@
 require_relative 'lib/parser.rb'
 
-['chap-2-1', 'chap-2-2'].each do |chapter|
+Parser::TAGS.keys.each do |chapter|
   parser = Parser.new("data/#{chapter}.txt")
   parser.run
 end
