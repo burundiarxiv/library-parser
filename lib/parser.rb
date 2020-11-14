@@ -1,4 +1,5 @@
 require 'pry'
+require 'json'
 
 class Parser
   REGEX_EXTRACTOR = Regexp.new(%r{(^[\w+'éÉçë,.;() -]+),\s"([\wéèçà'-:? XXVI,]*)",\s([\s\w+'éèÉ()\[\]/:-]+),\s(.*)\s?(\d{4}[-/]?\d*),\s(p+.\s\d+-\d+|\d+\sp.)})
