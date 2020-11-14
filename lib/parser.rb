@@ -1,5 +1,4 @@
 require 'pry'
-require 'yaml'
 
 class Parser
   REGEX_EXTRACTOR = Regexp.new(%r{(^[\w+'éÉçë,.;() -]+),\s"([\wéèçà'-:? XXVI,]*)",\s([\s\w+'éèÉ()\[\]/:-]+),\s(.*)\s?(\d{4}[-/]?\d*),\s(p+.\s\d+-\d+|\d+\sp.)})
@@ -22,7 +21,7 @@ class Parser
 
   def run
     parse
-    write
+    write("export/#{@chap_number}.json")
   end
 
   def export
@@ -42,6 +41,10 @@ class Parser
     end
   end
 
+  def write(destination)
+    File.open(destination, 'w') { |file| file.write(export.to_json) }
+  end
+
   private
 
   def clean
@@ -52,9 +55,5 @@ class Parser
 
   def extract(line)
     line.scan(REGEX_EXTRACTOR).flatten
-  end
-
-  def write
-    File.open("export/#{@chap_number}.yml", 'w') { |file| file.write(to_yaml) }
   end
 end

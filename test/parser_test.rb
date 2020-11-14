@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'pry'
+require 'json'
 require_relative '../lib/parser'
 
 class ParserTest < Minitest::Test
@@ -17,6 +18,18 @@ class ParserTest < Minitest::Test
     parser.parse
     json_results = parser.export
     assert_equal(expected_json, json_results.first)
+  end
+
+  def test_write_json_file
+    chapter = 'chap-2-1'
+    parser = Parser.new("data/#{chapter}.txt")
+    parser.parse
+    exported_file = 'test/fixtures/chap-2-1.json'
+    parser.write(exported_file)
+
+    file = File.read(exported_file)
+    data_hash = JSON.parse(file)
+    assert_equal(expected_json.map { |k, v| [k.to_s, v]}.to_h, data_hash.first)
   end
 
   private
