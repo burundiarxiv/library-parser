@@ -2,12 +2,13 @@ require 'pry'
 require 'json'
 
 class Parser
-  REGEX_EXTRACTOR = Regexp.new(%r{(^[\w+'éÉçë,.;—() -]+),\s"([\wéêèïçàÉ'-:? XXVI,\[\]()]*)",\s([\s\w+'éèàçÉ.()\[\]\/:-]+),\s(.*)\s?(\d{4}[-\/]?\d*),\s(p+.\s\d+-\d+|\d+\sp.)})
+  REGEX_EXTRACTOR = Regexp.new(%r{(^[\w+'éÉçë,.;—() -]+),\s"([\wéêèáïçûàÉ'-:? XXVI;,\[\]()]*)",\s([\s\w+'éèôàçÉ.;()\[\]\/:-]+),\s(.*)\s?(\d{4}[-\/ ]?\d*?|\d{4} \(\d{4}\)),\s(p+.\s\d+-\d+|\d+\sp.|n.p.)})
   TAGS =
     {
       'chap-2-1-1': 'HISTOIRE;TÉMOIGNAGE;Historiographie;Méthodes',
       'chap-2-1-2': 'HISTOIRE;TÉMOIGNAGE;Longues durées',
-      'chap-2-1-3': 'HISTOIRE;TÉMOIGNAGE;Préhistoire; Archéologie'
+      'chap-2-1-3': 'HISTOIRE;TÉMOIGNAGE;Préhistoire; Archéologie',
+      'chap-2-1-4': 'HISTOIRE;TÉMOIGNAGE;Période ancienne'
     }.freeze
 
   def initialize(file_path)
@@ -50,7 +51,7 @@ class Parser
   private
 
   def clean
-    map = { '“' => '"', '”' => '"', '’' => "'" }
+    map = { '“' => '"', '”' => '"', '’' => "'", '‘' => "'" }
     re = Regexp.new(map.keys.map { |x| Regexp.escape(x) }.join('|'))
     @content.gsub!(re, map)
   end
