@@ -11,6 +11,5 @@ Dir.glob('export/chap-*.json') do |f|
   file = File.read(f)
   library.concat JSON.parse(file)
 end
-library = library * 100
 
 File.open('export/library.json', 'w') { |file| file.write(library.to_json) }
