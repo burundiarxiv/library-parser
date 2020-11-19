@@ -32,6 +32,10 @@ class ParserTest < Minitest::Test
     test_extract_chapter('chap-2-1-7')
   end
 
+  def test_extract_content_chap_2_2_1
+    test_extract_chapter('chap-2-2-1')
+  end
+
   def test_export_to_json
     parser = parse_chapter('chap-2-1-1')
     json_results = parser.export

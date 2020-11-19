@@ -1,10 +1,9 @@
 require 'pry'
 require 'json'
 require_relative 'chapters'
+require_relative 'regex_extractor'
 
 class Parser
-  REGEX_EXTRACTOR = Regexp.new(%r{(^[\w+'éÉêèçë,.;—() -]+),\s"([\wéêèáöïçûàÉ'-:? XXVI;,\[\]()]*)",\s([\s\w+'éèüôàâçÉ°.;()\[\]\/:-]+),\s(.*)\s?(\d{4}[-\/ ]?\d*?|\d{4} \(\d{4}\)),\s(p+.\s\d+-\d+|\d+\sp.|n.p.)})
-
   def initialize(file_path)
     @content = File.read(file_path)
     @chap_number = File.basename(file_path, '.txt')
