@@ -1,4 +1,4 @@
-TAGS =
+CHAPTERS =
   {
     'chap-2-1-1': 'HISTOIRE;TÉMOIGNAGE;Historiographie;Méthodes',
     'chap-2-1-2': 'HISTOIRE;TÉMOIGNAGE;Longues durées',

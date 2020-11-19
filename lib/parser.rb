@@ -1,6 +1,6 @@
 require 'pry'
 require 'json'
-require_relative 'tags.rb'
+require_relative 'chapters'
 
 class Parser
   REGEX_EXTRACTOR = Regexp.new(%r{(^[\w+'éÉêèçë,.;—() -]+),\s"([\wéêèáöïçûàÉ'-:? XXVI;,\[\]()]*)",\s([\s\w+'éèüôàâçÉ°.;()\[\]\/:-]+),\s(.*)\s?(\d{4}[-\/ ]?\d*?|\d{4} \(\d{4}\)),\s(p+.\s\d+-\d+|\d+\sp.|n.p.)})
@@ -33,7 +33,7 @@ class Parser
         misc: misc,
         year: year,
         pages: pages,
-        tags: TAGS[@chap_number.to_sym].split(';')
+        tags: CHAPTERS[@chap_number.to_sym].split(';')
       }
     end
   end
