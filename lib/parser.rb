@@ -1,17 +1,9 @@
 require 'pry'
 require 'json'
+require_relative 'tags.rb'
 
 class Parser
   REGEX_EXTRACTOR = Regexp.new(%r{(^[\w+'éÉêèçë,.;—() -]+),\s"([\wéêèáöïçûàÉ'-:? XXVI;,\[\]()]*)",\s([\s\w+'éèüôàâçÉ°.;()\[\]\/:-]+),\s(.*)\s?(\d{4}[-\/ ]?\d*?|\d{4} \(\d{4}\)),\s(p+.\s\d+-\d+|\d+\sp.|n.p.)})
-  TAGS =
-    {
-      'chap-2-1-1': 'HISTOIRE;TÉMOIGNAGE;Historiographie;Méthodes',
-      'chap-2-1-2': 'HISTOIRE;TÉMOIGNAGE;Longues durées',
-      'chap-2-1-3': 'HISTOIRE;TÉMOIGNAGE;Préhistoire; Archéologie',
-      'chap-2-1-4': 'HISTOIRE;TÉMOIGNAGE;Période ancienne',
-      'chap-2-1-5': 'HISTOIRE;TÉMOIGNAGE;Période moderne',
-      'chap-2-1-6': 'HISTOIRE;TÉMOIGNAGE;Période contemporaine'
-    }.freeze
 
   def initialize(file_path)
     @content = File.read(file_path)
