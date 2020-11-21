@@ -30,7 +30,7 @@ class Parser
         title: title,
         edition: edition,
         misc: misc,
-        year: year,
+        year: year == '0000' ? '-' : year,
         pages: pages,
         tags: CHAPTERS[@chap_number.to_sym].split(';')
       }
