@@ -49,7 +49,7 @@ class ParserTest < Minitest::Test
 
     file = File.read(exported_file)
     data_hash = JSON.parse(file)
-    assert_equal(expected_json.map { |k, v| [k.to_s, v]}.to_h, data_hash.first)
+    assert_equal(expected_json.map { |k, v| [k.to_s, v] }.to_h, data_hash.first)
   end
 
   private
@@ -72,10 +72,10 @@ class ParserTest < Minitest::Test
     {
       "line": "Botte, Roger; Muel-Dreyfus, Francine; Le Pape, Marc; Vidal, Claudine, \"Les relations personnelles de subordination dans les sociétés interlacustres de l'Afrique centrale: Problèmes de méthode\", Cahiers d'études africaines, 9-35, 1969, pp. 350-401.",
       "authors": [
-        'Botte, Roger',
-        'Muel-Dreyfus, Francine',
-        'Le Pape, Marc',
-        'Vidal, Claudine'
+        'Botte Roger',
+        'Muel-Dreyfus Francine',
+        'Le Pape Marc',
+        'Vidal Claudine'
       ],
       "title": "Les relations personnelles de subordination dans les sociétés interlacustres de l'Afrique centrale: Problèmes de méthode",
       "edition": "Cahiers d'études africaines",
