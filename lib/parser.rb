@@ -26,7 +26,7 @@ class Parser
       authors, title, edition, misc, year, pages = match[1]
       {
         line: line,
-        authors: authors.split(';').map(&:strip),
+        authors: authors.split(';').map { |author| author.strip.gsub(',', '') },
         title: title,
         edition: edition,
         misc: misc,
